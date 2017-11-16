@@ -11,7 +11,6 @@ with open('file\qyn_name.txt', 'r', encoding='utf-8') as f:
 with open('file\qyn.txt', 'r', encoding='utf-8') as f:
     content = list(line.strip() for line in f.readlines())
 
-
 # 我们从最简单的做起，统计人物出先次数：
 def find_pepple_showup_cont(num=10):
     '''
@@ -101,8 +100,6 @@ for line in content:
         if seg not in STOPWORD:
             unique_list.append(seg)
     sentence.append(unique_list)
-print('分词完毕')
-
 
 # 开始训练模型
 import gensim
