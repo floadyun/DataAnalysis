@@ -2,5 +2,5 @@
 from wordanalysis import drawWordCloud
 from lib.jiebademo import testCut
 
-testCut()
-# drawWordCloud('file\三国演义.txt', 'image\guanyu.jpg')
+# testCut()
+drawWordCloud('file\shenyou.txt', 'image\guanyu.jpg')

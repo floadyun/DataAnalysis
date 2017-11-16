@@ -1,5 +1,6 @@
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from scipy.misc import imread
 import jieba
 
 #剔除重复性高无意义的关键词
@@ -15,7 +16,7 @@ sanguo_text = open('file\三国演义.txt', 'r', encoding='UTF-8').read()
 
 # 结巴分词，生成字符串，如果不通过分词，无法直接生成正确的中文词云
 # cut_text = " ".join(jieba.cut(sanguo_text))
-words = jieba.lcut(sanguo_text)
+words = jieba.cut(sanguo_text)
 counts = {}
 sanguo = ''
 for word in words:
@@ -45,7 +46,9 @@ for i in range(len(items)):
     word, count = items[i]
     print(word, count)
 
-wordcloud = WordCloud(font_path='file\BLPP.ttf').generate_from_text(sanguo)
+cloud_img = imread('image\guanyu.jpg')
+wordcloud = WordCloud(font_path='file\BLPP.ttf', mask=cloud_img, max_words=10).generate_from_text(sanguo)
+
 plt.imshow(wordcloud)
 plt.axis('off')
 plt.show()
