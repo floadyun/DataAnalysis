@@ -16,7 +16,6 @@ tradeRecords = ['184109.html', '220327.html', '223736.html', '526398.htm', '1963
 for tradeRecord in tradeRecords:
     soup = BeautifulSoup(open("file\\trade\\"+tradeRecord, 'r', encoding='utf-8'), 'lxml')
     trs = soup.find_all('tr', attrs={'align': "right"})
-    print('记录长度:', len(trs))
     for tr in trs:
         tds = tr.contents
         if len(tds) > 13:
