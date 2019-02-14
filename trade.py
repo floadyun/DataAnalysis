@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plot
+import operator
 
 class Symbol:
     year = ''
@@ -67,9 +68,9 @@ for tradeRecord in tradeRecords:
 def analysisSymbol(trades):
     categorys = {}
     times = {}
+    months = {}
     for trade in trades:
-        print('交易品种:', trade.symbol, '交易手数:', trade.lot, '交易方向:', trade.direction, '开仓时间', trade.openTime, '开仓价:',
-              trade.openPrice, '平仓价:', trade.closePrice, '盈亏:', trade.profit)
+        print('交易品种:', trade.symbol, '交易手数:', trade.lot, '交易方向:', trade.direction, '开仓时间', trade.openTime, '盈亏:', trade.profit)
         if trade.symbol in categorys:
             symbols = categorys[trade.symbol]
             symbols.append(trade)
@@ -78,17 +79,32 @@ def analysisSymbol(trades):
             symbols.append(trade)
             categorys[trade.symbol] = symbols
         time = trade.openTime.split(' ')[0]
+        month = trade.openTime.split(' ')[0]
         if time.__contains__('.'):
             time = time.split(".")[0]
+            month = month.split('.')[1]
         elif time.__contains__('/'):
             time = time.split('/')[2]
+            month = month.split('/')[1]
         if time in times:
             symbolss = times[time]
             symbolss.append(trade)
+            if month in months[time]:
+                monthSymbols = months[time][month]
+                monthSymbols.append(trade)
+            else:
+                monthSymbols = []
+                monthSymbols.append(trade)
+                months[time][month] = monthSymbols
         else:
             symbolss = []
             symbolss.append(trade)
             times[time] = symbolss
+            monthSymbols = {}
+            monthSymbolss = []
+            monthSymbolss.append(trade)
+            monthSymbols[month] = monthSymbolss
+            months[time] = monthSymbols
     allProfit = 0
     maxProfit = 0
     maxLoss = 0
@@ -116,7 +132,7 @@ def analysisSymbol(trades):
                 totalLoss += symbol1.profit
                 if symbol1.profit < maxLoss:
                     maxLoss = symbol1.profit
-            if symbol1.profit < -500:
+            if symbol1.profit < -1000:
                 numbers += 1
             if symbol1.direction == 'buy':
                 buys += 1
@@ -127,12 +143,18 @@ def analysisSymbol(trades):
         print('交易品种:', symbol.symbol, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  '多/空:%d/%d' % (buys, sells),  '盈亏:', round(profit, 2))
     print('\n')
     print('亏损超一千美金的次数：', numbers)
+    times = dict(sorted(times.items(), key=operator.itemgetter(0)))  # 按key值排序
     for category in times.values():
         profit = 0
         volume = 0
         buys = 0
         sells = 0
         symbol = category[0]
+        time = symbol.openTime.split(' ')[0]
+        if time.__contains__('.'):
+            time = time.split(".")[0]
+        elif time.__contains__('/'):
+            time = time.split('/')[2]
         for symbol1 in category:
             profit += symbol1.profit
             volume += symbol1.lot
@@ -147,12 +169,21 @@ def analysisSymbol(trades):
             else:
                 sells += sells
         trades += len(category)
-        time = symbol.openTime.split(' ')[0]
-        if time.__contains__('.'):
-            time = time.split(".")[0]
-        elif time.__contains__('/'):
-            time = time.split('/')[2]
-        print('交易年限:', time, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  ' 盈亏:', round(profit, 2))
+        print('\n交易年限:', time, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  ' 盈亏:', round(profit, 2))
+        monthTrade = months[time]
+        monthTrade = dict(sorted(monthTrade.items(), key=operator.itemgetter(0)))#按key值排序
+        for monthList in monthTrade.values():
+            monthProfit = 0
+            monthVolume = 0
+            for mTrade in monthList:
+                monthRecord = mTrade.openTime.split(' ')[0]
+                if monthRecord.__contains__('.'):
+                    monthRecord = monthRecord.split(".")[1]
+                elif monthRecord.__contains__('/'):
+                    monthRecord = monthRecord.split('/')[1]
+                monthProfit += mTrade.profit
+                monthVolume +=mTrade.lot
+            print('月份：', monthRecord, '交易笔数：', len(monthList), '交易量', round(monthVolume), '盈亏：', round(monthProfit, 2))
 
     print('\n交易品种:', len(categorys), '交易笔数:', trades, '交易量:', round(totalVolumes, 2), '最大盈利:', maxProfit, '最大亏损:', maxLoss, '总盈利:', round(totalProfit, 2), '总亏损:', round(totalLoss, 2), '合计盈亏:', round(allProfit, 2))
 
