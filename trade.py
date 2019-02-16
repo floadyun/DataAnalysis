@@ -183,7 +183,7 @@ def analysisSymbol(trades):
                     monthRecord = monthRecord.split('/')[1]
                 monthProfit += mTrade.profit
                 monthVolume +=mTrade.lot
-            print('月份：', monthRecord, '交易笔数：', len(monthList), '交易量', round(monthVolume), '盈亏：', round(monthProfit, 2))
+            print('月份：', monthRecord, '交易笔数：', len(monthList), '交易量', round(monthVolume, 2), '盈亏：', round(monthProfit, 2))
 
     print('\n交易品种:', len(categorys), '交易笔数:', trades, '交易量:', round(totalVolumes, 2), '最大盈利:', maxProfit, '最大亏损:', maxLoss, '总盈利:', round(totalProfit, 2), '总亏损:', round(totalLoss, 2), '合计盈亏:', round(allProfit, 2))
 
