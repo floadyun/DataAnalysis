@@ -15,7 +15,7 @@ class Symbol:
 symbols = []
 tradeRecords = ['184109.html', '211953.html',  '22769972.htm',  '526398.htm', '63401.htm', '80881309.htm', '220327.html', '223736.html', '2024063.htm',  '196322.html',  '214354.html',
                  '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm']
-# tradeRecords = ['2024063.htm']
+tradeRecords = ['220327.html']
 for tradeRecord in tradeRecords:
     if tradeRecord == '2024063.htm':
         soup = BeautifulSoup(open("file\\trade\\" + tradeRecord, 'r', encoding='utf-8'), 'lxml')
@@ -168,7 +168,6 @@ def analysisSymbol(trades):
                 buys += buys
             else:
                 sells += sells
-        trades += len(category)
         print('\n交易年限:', time, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  ' 盈亏:', round(profit, 2))
         monthTrade = months[time]
         monthTrade = dict(sorted(monthTrade.items(), key=operator.itemgetter(0)))#按key值排序
