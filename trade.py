@@ -32,7 +32,8 @@ for tradeRecord in tradeRecords:
                 symbol.direction = tds[7].string
                 symbol.lot = float(tds[15].string)
                 symbol.symbol = tds[5].string.replace('.ecn', '').upper()
-
+                if symbol.symbol == 'XAUUSD':
+                    symbol.symbol = 'GOLD'
                 symbol.openTime = tds[9].string
                 symbol.closeTime = tds[9].string
                 symbol.openPrice = tds[11].string
