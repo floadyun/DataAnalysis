@@ -14,7 +14,7 @@ class Symbol:
 
 symbols = []
 tradeRecords = ['184109.html', '211953.html',  '22769972.htm',  '526398.htm', '63401.htm', '80881309.htm', '220327.html', '223736.html', '2024063.htm',  '196322.html',  '214354.html',
-                 '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm', '829679.htm', "831961.htm"]
+                 '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm', '829679.htm', "831961.htm", "840558.htm"]
 # tradeRecords = ['63401.htm', '22769972.htm', '22769972_2.htm', '22789423.htm', '80881309.htm', '80885244.htm',
 #                 '8009113.htm', '8009926.htm', '829679.htm']
 for tradeRecord in tradeRecords:
@@ -52,10 +52,14 @@ for tradeRecord in tradeRecords:
                 symbol = Symbol()
                 symbol.direction = tds[2].string
                 symbol.lot = float(tds[3].string)
+
                 symbol.symbol = tds[4].string.replace('.ecn', '').upper()
                 symbol.symbol = symbol.symbol.replace('.STP', '')
                 symbol.symbol = symbol.symbol.replace('PRO', '')
                 symbol.symbol = symbol.symbol.replace('.', '')
+                if symbol.symbol.find('MIN') > 0:
+                    symbol.lot = float(tds[3].string)/10
+                symbol.symbol = symbol.symbol.replace("MIN", '')
 
                 if symbol.symbol == 'XTIUSD':
                     symbol.symbol = 'USOIL'
@@ -73,7 +77,7 @@ def analysisSymbol(trades):
     times = {}
     months = {}
     for trade in trades:
-        print('交易品种:', trade.symbol, '交易手数:', trade.lot, '交易方向:', trade.direction, '开仓时间', trade.openTime, '盈亏:', trade.profit)
+        # print('交易品种:', trade.symbol, '交易手数:', trade.lot, '交易方向:', trade.direction, '开仓时间', trade.openTime, '盈亏:', trade.profit)
         if trade.symbol in categorys:
             symbols = categorys[trade.symbol]
             symbols.append(trade)
