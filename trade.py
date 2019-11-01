@@ -17,6 +17,7 @@ tradeRecords = ['184109.html', '211953.html',  '22769972.htm',  '526398.htm', '6
                  '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm', '829679.htm', "831961.htm", "840558.htm"]
 # tradeRecords = ['63401.htm', '22769972.htm', '22769972_2.htm', '22789423.htm', '80881309.htm', '80885244.htm',
 #                 '8009113.htm', '8009926.htm', '829679.htm']
+tradeRecords = ['829679.htm', "831961.htm", "840558.htm"]
 for tradeRecord in tradeRecords:
     if tradeRecord == '2024063.htm':
         soup = BeautifulSoup(open("file\\trade\\" + tradeRecord, 'r', encoding='utf-8'), 'lxml')
