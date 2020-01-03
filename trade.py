@@ -151,8 +151,7 @@ def analysisSymbol(trades):
         allProfit += profit
         trades += len(category)
         print('交易品种:', symbol.symbol, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  '多/空:%d/%d' % (buys, sells),  '盈亏:', round(profit, 2))
-    print('\n')
-    print('亏损超500美金的次数：', numbers)
+    print('\n亏损超500美金的次数：', numbers)
     times = dict(sorted(times.items(), key=operator.itemgetter(0)))  # 按key值排序
     for category in times.values():
         profit = 0
