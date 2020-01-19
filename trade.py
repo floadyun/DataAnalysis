@@ -15,9 +15,9 @@ class Symbol:
 symbols = []
 tradeRecords = ['184109.html', '211953.html',  '22769972.htm',  '526398.htm', '63401.htm', '80881309.htm', '220327.html', '223736.html', '2024063.htm',  '196322.html',  '214354.html',
                  '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm', '829679.htm', "831961.htm", "840558.htm"]
-# tradeRecords = ['63401.htm', '22769972.htm', '22769972_2.htm', '22789423.htm', '80881309.htm', '80885244.htm',
-#                 '8009113.htm', '8009926.htm', '829679.htm']
-# tradeRecords = ['63401.htm', '829679.htm', "831961.htm", "840558.htm"]
+tradeRecords = ['63401.htm', '526398.htm', '829679.htm']
+# tradeRecords = ["831961.htm", '22769972.htm', '22769972_2.htm', '22789423.htm', '80881309.htm', '80885244.htm', '8009113.htm', '8009926.htm']
+# tradeRecords = ["840558.htm", '220327.html', '223736.html', '2024063.htm',  '196322.html', '214354.html', '184109.html']
 for tradeRecord in tradeRecords:
     if tradeRecord == '2024063.htm':
         soup = BeautifulSoup(open("file\\trade\\" + tradeRecord, 'r', encoding='utf-8'), 'lxml')
@@ -142,7 +142,7 @@ def analysisSymbol(trades):
                 totalLoss += symbol1.profit
                 if symbol1.profit < maxLoss:
                     maxLoss = symbol1.profit
-            if symbol1.profit < -500:
+            if symbol1.profit < -1000:
                 numbers += 1
             if symbol1.direction == 'buy':
                 buys += 1
@@ -151,7 +151,7 @@ def analysisSymbol(trades):
         allProfit += profit
         trades += len(category)
         print('交易品种:', symbol.symbol, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  '多/空:%d/%d' % (buys, sells),  '盈亏:', round(profit, 2))
-    print('\n亏损超500美金的次数：', numbers)
+    print('\n亏损超1000美金的次数：', numbers)
     times = dict(sorted(times.items(), key=operator.itemgetter(0)))  # 按key值排序
     for category in times.values():
         profit = 0
