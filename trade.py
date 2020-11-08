@@ -66,8 +66,8 @@ for tradeRecord in tradeRecords:
                     symbol.symbol = 'XAUUSD'
                 if symbol.symbol == 'HSI33':
                     symbol.symbol = "HK50"
-                if symbol.symbol == 'CHINAA50':
-                    symbol.symbol = "HK50"
+                if symbol.symbol == 'BTC':
+                    symbol.symbol = "BTCUSD"
                 symbol.openTime = tds[1].string
                 symbol.closeTime = tds[8].string
                 symbol.openPrice = tds[5].string
