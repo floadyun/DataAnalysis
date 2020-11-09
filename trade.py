@@ -155,6 +155,8 @@ def analysisSymbol(trades):
     times = dict(sorted(times.items(), key=operator.itemgetter(0)))  # 按key值排序
     for category in times.values():
         profit = 0
+        yearProfit = 0
+        yearlOSS = 0
         volume = 0
         buys = 0
         sells = 0
@@ -166,6 +168,10 @@ def analysisSymbol(trades):
             time = time.split('/')[2]
         for symbol1 in category:
             profit += symbol1.profit
+            if symbol1.profit > 0:
+                yearProfit += symbol1.profit
+            else:
+                yearlOSS += symbol1.profit
             volume += symbol1.lot
             if symbol1.profit > 0:
                 if symbol1.profit > maxProfit:
@@ -178,7 +184,7 @@ def analysisSymbol(trades):
             else:
                 sells += sells
         trades += len(category)
-        print('\n交易年限:', time, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  ' 盈亏:', round(profit, 2))
+        print('\n交易年限:', time, ' 交易笔数:', len(category), '交易量:', round(volume, 2), '盈利:', round(yearProfit, 2), '亏损:', round(yearlOSS, 2), ' 盈亏:', round(profit, 2))
         monthTrade = months[time]
         monthTrade = dict(sorted(monthTrade.items(), key=operator.itemgetter(0)))#按key值排序
         for monthList in monthTrade.values():
@@ -198,7 +204,7 @@ def analysisSymbol(trades):
                     monthLost += mTrade.profit
                 monthTotalProfit +=mTrade.profit
                 monthVolume +=mTrade.lot
-            print('月份：', monthRecord, ' 交易笔数：', len(monthList), ' 交易量', round(monthVolume, 2), " 盈利", round(monthProfit, 2), " 亏损", round(monthLost, 2), ' 总盈亏：', round(monthTotalProfit, 2))
+            print('月份:', monthRecord, ' 交易笔数：', len(monthList), ' 交易量:', round(monthVolume, 2), " 盈利:", round(monthProfit, 2), " 亏损:", round(monthLost, 2), ' 总盈亏：', round(monthTotalProfit, 2))
 
     print('\n交易品种:', len(categorys), '交易笔数:', trades, '交易量:', round(totalVolumes, 2), '最大盈利:', maxProfit, '最大亏损:', maxLoss, '总盈利:', round(totalProfit, 2), '总亏损:', round(totalLoss, 2), '合计盈亏:', round(allProfit, 2))
 
