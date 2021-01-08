@@ -72,7 +72,7 @@ for tradeRecord in tradeRecords:
                 symbol.closeTime = tds[8].string
                 symbol.openPrice = tds[5].string
                 symbol.closePrice = tds[9].string
-                symbol.profit = float(tds[13].string)
+                symbol.profit = float(tds[13].string.replace(" ", ""))
                 symbols.append(symbol)
 
 def analysisSymbol(trades):
