@@ -123,7 +123,8 @@ def analysisSymbol(trades):
     trades = 0
     totalVolumes = 0
     print('\n')
-    numbers = 0
+    lossNumbers = 0
+    profitNumbers=0
     for category in categorys.values():
         profit = 0
         volume = 0
@@ -142,8 +143,10 @@ def analysisSymbol(trades):
                 totalLoss += symbol1.profit
                 if symbol1.profit < maxLoss:
                     maxLoss = symbol1.profit
-            if symbol1.profit < -1000:
-                numbers += 1
+            if symbol1.profit <= -1000:
+                lossNumbers += 1
+            if symbol1.profit >= 1000:
+                profitNumbers += 1
             if symbol1.direction == 'buy':
                 buys += 1
             else:
@@ -151,7 +154,7 @@ def analysisSymbol(trades):
         allProfit += profit
         trades += len(category)
         print('交易品种:', symbol.symbol, ' 交易笔数:', len(category), '交易量:', round(volume, 2),  '多/空:%d/%d' % (buys, sells),  '盈亏:', round(profit, 2))
-    print('\n亏损超1000美金的次数：', numbers)
+    print('\n亏损超1000美金的次数:', lossNumbers, '盈利超1000美金的次数为:', profitNumbers)
     times = dict(sorted(times.items(), key=operator.itemgetter(0)))  # 按key值排序
     for category in times.values():
         profit = 0
