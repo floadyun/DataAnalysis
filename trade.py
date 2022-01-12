@@ -15,7 +15,7 @@ class Symbol:
 symbols = []
 tradeRecords = ['184109.html', '211953.html',  '22769972.htm',  '526398.htm', '63401.htm', '80881309.htm', '220327.html', '223736.html', '2024063.htm',  '196322.html',  '214354.html',
                  '22789423.htm',  '22769972_2.htm', '80885244.htm', '8009113.htm', '8009926.htm', '829679.htm', "831961.htm", "840558.htm", "693009294.htm"]
-tradeRecords = ['829679.htm', '831961.htm', '840558.htm']
+# tradeRecords = ['829679.htm', '831961.htm', '840558.htm']
 # tradeRecords = ["831961.htm", '22769972.htm', '22769972_2.htm', '22789423.htm', '80881309.htm', '80885244.htm', '8009113.htm', '8009926.htm']
 # tradeRecords = ["840558.htm", '220327.html', '223736.html', '2024063.htm',  '196322.html', '214354.html', '184109.html']
 for tradeRecord in tradeRecords:
@@ -62,17 +62,21 @@ for tradeRecord in tradeRecords:
 
                 if symbol.symbol == 'XTIUSD':
                     symbol.symbol = 'USOIL'
+                if symbol.symbol == 'USOILDEC21':
+                    symbol.symbol = 'USOIL'
                 if symbol.symbol == 'GOLD':
                     symbol.symbol = 'XAUUSD'
                 if symbol.symbol == 'HSI33':
                     symbol.symbol = "HK50"
                 if symbol.symbol == 'BTC':
                     symbol.symbol = "BTCUSD"
+                if symbol.symbol == 'GER40':
+                    symbol.symbol = 'GER30'
                 symbol.openTime = tds[1].string
                 symbol.closeTime = tds[8].string
                 symbol.openPrice = tds[5].string
                 symbol.closePrice = tds[9].string
-                symbol.profit = float(tds[13].string.replace(" ", ""))
+                symbol.profit = float(tds[13].string.replace(" ", ""))+float(tds[12].string.replace(" ", ""))
                 symbols.append(symbol)
 
 def analysisSymbol(trades):
@@ -209,7 +213,7 @@ def analysisSymbol(trades):
                 monthVolume +=mTrade.lot
             print('月份:', monthRecord, ' 交易笔数：', len(monthList), ' 交易量:', round(monthVolume, 2), " 盈利:", round(monthProfit, 2), " 亏损:", round(monthLost, 2), ' 总盈亏：', round(monthTotalProfit, 2))
 
-    print('\n交易品种:', len(categorys), '交易笔数:', trades, '交易量:', round(totalVolumes, 2), '最大盈利:', maxProfit, '最大亏损:', maxLoss, '总盈利:', round(totalProfit, 2), '总亏损:', round(totalLoss, 2), '合计盈亏:', round(allProfit, 2))
+    print('\n交易品种:', len(categorys), '交易笔数:', trades, '交易量:', round(totalVolumes, 2), '最大盈利:', round(maxProfit, 2), '最大亏损:', round(maxLoss, 2), '总盈利:', round(totalProfit, 2), '总亏损:', round(totalLoss, 2), '合计盈亏:', round(allProfit, 2))
 
     # plot.xlabel('交易品种')
     # plot.ylabel('交易次数')
