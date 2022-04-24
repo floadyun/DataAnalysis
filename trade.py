@@ -37,7 +37,7 @@ for tradeRecord in tradeRecords:
                 symbol.closeTime = tds[9].string
                 symbol.openPrice = tds[11].string
                 symbol.closePrice = tds[12].string
-                symbol.profit = float(tds[23].string)
+                symbol.profit = float(tds[23].string)+float(tds[21].string)
                 symbols.append(symbol)
     else:
         soup = BeautifulSoup(open("file\\trade\\"+tradeRecord, 'r', encoding='utf-8'), 'lxml')
@@ -92,8 +92,8 @@ def analysisSymbol(trades):
             symbols = []
             symbols.append(trade)
             categorys[trade.symbol] = symbols
-        time = trade.openTime.split(' ')[0]
-        month = trade.openTime.split(' ')[0]
+        time = trade.closeTime.split(' ')[0]
+        month = trade.closeTime.split(' ')[0]
         if time.__contains__('.'):
             time = time.split(".")[0]
             month = month.split('.')[1]
@@ -168,7 +168,7 @@ def analysisSymbol(trades):
         buys = 0
         sells = 0
         symbol = category[0]
-        time = symbol.openTime.split(' ')[0]
+        time = symbol.closeTime.split(' ')[0]
         if time.__contains__('.'):
             time = time.split(".")[0]
         elif time.__contains__('/'):
@@ -200,7 +200,7 @@ def analysisSymbol(trades):
             monthTotalProfit = 0
             monthVolume = 0
             for mTrade in monthList:
-                monthRecord = mTrade.openTime.split(' ')[0]
+                monthRecord = mTrade.closeTime.split(' ')[0]
                 if monthRecord.__contains__('.'):
                     monthRecord = monthRecord.split(".")[1]
                 elif monthRecord.__contains__('/'):
