@@ -61,6 +61,10 @@ for tradeRecord in tradeRecords:
                 if symbol.symbol.find('MIN') > 0:
                     symbol.lot = float(tds[3].string)/10
                 symbol.symbol = symbol.symbol.replace("MIN", '')
+                if(symbol.symbol.endswith("E")):
+                    symbol.symbol = symbol.symbol.replace("E", '')
+                if (symbol.symbol.endswith("M")):
+                    symbol.symbol = symbol.symbol.replace("M", '')
 
                 if symbol.symbol == 'XTIUSD':
                     symbol.symbol = 'USOIL'
