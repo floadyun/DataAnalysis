@@ -3,7 +3,7 @@ import operator
 import io
 import sys
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='gb18030') #改变标准输出的默认编码
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utF-8') #改变标准输出的默认编码
 
 class Symbol:
     year = ''
