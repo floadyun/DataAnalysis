@@ -1,5 +1,8 @@
 import csv
+import io
+import sys
 
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utF-8') #改变标准输出的默认编码
 csv_reader = csv.reader(open("file\\stock.csv"))
 totalBuy = 0
 totalSell = 0
